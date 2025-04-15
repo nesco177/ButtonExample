@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Shaped Click Area Buttons</title>
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: #f0f0f0;
+          margin: 0;
+          font-family: Arial, sans-serif;
+        }
+
+        .button-container {
+          display: flex;
+          padding-top: 150px;
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .unique-button {
+          position: relative;
+          padding: 15px 30px;
+          font-size: 18px;
+          color: black;
+          background-color: #87CEFA;
+          border: 2px solid black;
+          border-radius: 15px;
+          cursor: pointer;
+          outline: none;
+          overflow: hidden;
+          transition: background-color 0.3s, transform 0.2s;
+          z-index: 1;
+        }
+
+        .unique-button.clicked {
+          background-color: #87CEFA;
+        }
+
+        .unique-button:active {
+          transform: scale(0.70);
+          background-color: #4682B4;
+        }
+
+        .unique-button:hover {
+          background-color: #00BFFF;
+        }
+
+        .unique-button .particles {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: white;
+          opacity: 0;
+          pointer-events: none;
+          transform: translate(-50%, -50%) scale(0);
+          animation: particle 0.6s ease-out forwards;
+          clip-path: inset(0 round 15px);
+        }
+
+        @keyframes particle {
+          0% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(0);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(var(--x), var(--y)) scale(1);
+          }
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <button class="unique-button" onclick="createParticles(event)">HT Consumers</button>
+    <button class="unique-button" onclick="createParticles(event)">Feeder Location</button>
+    <button class="unique-button" onclick="navigateToSubstationPage()">Substation Update</button>
+    <button class="unique-button" onclick="createParticles(event)">Engineers Update</button>
+    <button class="unique-button" onclick="navigateToConsumerSearchPage()">Consumer Search</button>
+    <button class="unique-button" onclick="navigateToDutyRosterPage()">Duty Roster</button>
+    <button class="unique-button" onclick="navigateToMRBookPage()">Postpaid Book</button> <!-- NEW BUTTON -->
+</div>
+
+<script>
+    function createParticles(event) {
+      const button = event.currentTarget;
+      const particlesCount = 10;
+
+      button.classList.add('clicked');
+      setTimeout(() => {
+        button.classList.remove('clicked');
+      }, 400);
+
+      for (let i = 0; i < particlesCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particles';
+
+        const x = (Math.random() - 0.5) * 60;
+        const y = (Math.random() - 0.5) * 60;
+
+        particle.style.setProperty('--x', `${x}px`);
+        particle.style.setProperty('--y', `${y}px`);
+
+        button.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, 600);
+      }
+    }
+
+    function navigateToSubstationPage() {
+      window.location.href = "substation-update.html";
+    }
+
+    function navigateToConsumerSearchPage() {
+      window.location.href = "consumer-search.html";
+    }
+
+    function navigateToDutyRosterPage() {
+      window.location.href = "duty-roster.html";
+    }
+
+    function navigateToMRBookPage() {
+      window.location.href = "postpaid-book.html";
+    }
+</script>
+
+</body>
+</html>
